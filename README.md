@@ -137,4 +137,4 @@ To run the app locally with `docker`:
 
 ## Deploy
 
-For deploying, either install metacall CLI as shown before. Then run `metacall deploy`.
+For deploying, install metacall CLI as shown before. Then run `metacall deploy`.
