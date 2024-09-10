@@ -1,13 +1,11 @@
 import asyncio
 import uvicorn
 
-async def main():
+try:
     config = uvicorn.Config("main:app", host="0.0.0.0", port=5000, log_level="info")
     server = uvicorn.Server(config)
-    await server.serve()
-
-if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        pass
+    asyncio.run(server.serve())
+except KeyboardInterrupt:
+    pass
+except Exception as e:
+    print('An exception occurred: {}'.format(e))
