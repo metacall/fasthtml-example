@@ -124,7 +124,7 @@ To run the app locally with `metacall` CLI:
 
 1. Clone the repository
 2. [Install metacall CLI](https://github.com/metacall/install): `curl -sL https://raw.githubusercontent.com/metacall/install/master/install.sh | sh`
-3. Install the dependencies: `metacall pip install -r requirements.txt`
+3. Install the dependencies: `metacall pip3 install -r requirements.txt`
 4. Run the server: `metacall server.py`
 
 ### Docker

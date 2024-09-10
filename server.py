@@ -1,11 +1,12 @@
-import asyncio
 import uvicorn
+from multiprocessing import Process
+import time
 
 try:
-    config = uvicorn.Config("main:app", host="0.0.0.0", port=5000, log_level="info")
-    server = uvicorn.Server(config)
-    asyncio.run(server.serve())
-except KeyboardInterrupt:
-    pass
+    def main():
+        uvicorn.run("main:app", host="0.0.0.0", port=5000, log_level="info")
+    proc = Process(target=main, args=(), daemon=True)
+    proc.start()
+    time.sleep(5)
 except Exception as e:
-    print('An exception occurred: {}'.format(e))
+    print(e)
