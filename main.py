@@ -2,16 +2,7 @@ from fasthtml.common import *
 import asyncio
 import sys
 
-async def main():
-    config = uvicorn.Config("main:app", host="0.0.0.0", port=5000, log_level="info")
-    server = uvicorn.Server(config)
-    await server.serve()
-
-if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        exit(0)
+if __name__ == "__main__": sys.exit("Run this app with `uvicorn main:app`")
 
 css = Style('''
     body, html { height: 100%; margin: 0; }

@@ -1,25 +1,14 @@
+
 import asyncio
-from threading import Thread
 import uvicorn
-from main import main
-import atexit
 
-try:
-    def start_background_loop(loop: asyncio.AbstractEventLoop) -> None:
-        asyncio.set_event_loop(loop)
-        loop.run_forever()
+async def main():
+    config = uvicorn.Config("main:app", host="0.0.0.0", port=5000, log_level="info")
+    server = uvicorn.Server(config)
+    await server.serve()
 
-    loop = asyncio.new_event_loop()
-    t = Thread(target=start_background_loop, args=(loop,), daemon=True)
-    t.start()
-
-    task = asyncio.run_coroutine_threadsafe(main(), loop)
-
-    def exit_handler():
-        loop.stop()
-
-    atexit.register(exit_handler)
-except KeyboardInterrupt:
-    pass
-except Exception as e:
-    print('An exception occurred: {}'.format(e))
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        exit(0)
