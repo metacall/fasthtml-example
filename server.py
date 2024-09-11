@@ -3,11 +3,12 @@ import asyncio
 import uvicorn
 
 async def main():
-    config = uvicorn.Config("main:app", host="0.0.0.0", port=5000, log_level="info")
+    print('Startup the uvicorn server', flush=True)
+    config = uvicorn.Config('main:app', host='0.0.0.0', port=5000, log_level='info')
     server = uvicorn.Server(config)
     await server.serve()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
