@@ -1,13 +1,25 @@
+import asyncio
+from threading import Thread
 import uvicorn
-from multiprocessing import Process
-import time
+from main import main
+import atexit
 
 try:
-    def main():
-        uvicorn.run("main:app", host="0.0.0.0", port=5000, log_level="info")
-    proc = Process(target=main, args=(), daemon=True)
-    proc.start()
-    print('Process launched')
-    time.sleep(5)
+    def start_background_loop(loop: asyncio.AbstractEventLoop) -> None:
+        asyncio.set_event_loop(loop)
+        loop.run_forever()
+
+    loop = asyncio.new_event_loop()
+    t = Thread(target=start_background_loop, args=(loop,), daemon=True)
+    t.start()
+
+    task = asyncio.run_coroutine_threadsafe(main(), loop)
+
+    def exit_handler():
+        loop.stop()
+
+    atexit.register(exit_handler)
+except KeyboardInterrupt:
+    pass
 except Exception as e:
-    print(e)
+    print('An exception occurred: {}'.format(e))
