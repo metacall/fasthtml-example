@@ -1,11 +1,14 @@
 import asyncio
 from threading import Thread
 import uvicorn
-from server import main
 # import time
 # import atexit
 
 try:
+    from server import main
+
+    print('Running uvicorn in a background thread')
+
     def start_background_loop(loop: asyncio.AbstractEventLoop) -> None:
         asyncio.set_event_loop(loop)
         loop.run_forever()
@@ -13,8 +16,6 @@ try:
     loop = asyncio.new_event_loop()
     t = Thread(target=start_background_loop, args=(loop,), daemon=True)
     t.start()
-
-    asyncio.set_event_loop(loop)
 
     task = asyncio.run_coroutine_threadsafe(main(), loop)
 
